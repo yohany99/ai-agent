@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from prompts import system_prompt
+from config import MAX_ITERS
 from call_function import available_functions, call_function
 
 def main():
@@ -18,7 +19,7 @@ def main():
 
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
 
-    for _ in range(20):
+    for _ in range(MAX_ITERS):
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
             model="gemini-2.5-flash", 
